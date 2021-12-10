@@ -1,0 +1,232 @@
+mysql> CREATE DATABASE MOVIE_5CS1_B1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE MOVIE_5CS1_B1;
+Database changed
+mysql> CREATE TABLE ACTOR(Act_id INT PRIMARY KEY,Act_Name VARCHAR(20),Act_Gender CHAR);
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> CREATE TABLE DIRECTOR(Dir_id INT PRIMARY KEY,Dir_Name VARCHAR(20),Dir_Phone BIGINT);
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> CREATE TABLE MOVIES(Mov_id INT PRIMARY KEY,Movie_Title VARCHAR(30),Mov_Year INT,Mov_Lang VARCHAR(20),Dir_id INT, FOREIGN KEY(Dir_id) REFERENCES
+DIRECTOR(Dir_id) ON DELETE CASCADE ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> CREATE TABLE MOVIE_CAST(Act_id INT,Mov_id INT,Role VARCHAR(10),PRIMARY KEY(Act_id,Mov_id), FOREIGN KEY(Act_id) REFERENCES ACTOR(Act_id) ON DELET
+E CASCADE ON UPDATE CASCADE,FOREIGN KEY(Mov_id) REFERENCES MOVIES(Mov_id) ON DELETE CASCADE ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> CREATE TABLE RATING(Mov_id INT PRIMARY KEY,Rev_Stars INT,FOREIGN KEY(Mov_id) REFERENCES MOVIES(Mov_id) ON DELETE CASCADE ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> INSERT INTO ACTOR VALUES(1,'Ganesh','M');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO ACTOR VALUES(2,'Sudeep','M');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO ACTOR VALUES(3,'Radhika','F');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO ACTOR VALUES(4,'Rakshitha','F');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO ACTOR VALUES(5,'Ravichandran','M');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO DIRECTOR VALUES(101,'Dorai Bhagwan',9408765841);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DIRECTOR VALUES(102,'Yograj Bhat',6238846656);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DIRECTOR VALUES(103,'Sudeep',9108794527);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO DIRECTOR VALUES(104,'Ravichandran',8086465298);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO DIRECTOR VALUES(105,'Dwarakeesh',9566557639);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO DIRECTOR VALUES(106,'Hitchcock',9847931105);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO MOVIES VALUES(11,'M1',2008,'Kannada',102);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIES VALUES(12,'M2',2010,'Kannada',103);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO MOVIES VALUES(13,'M3',1990,'Kannada',104);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIES VALUES(14,'M4',2010,'Kannada',105);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO MOVIES VALUES(15,'M5',2012,'Kannada',105);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIES VALUES(16,'M6',1992,'Kannada',104);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO MOVIES VALUES(17,'M7',1990,'Kannada',101);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIES VALUES(18,'M8',2015,'Kannada',106);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(1,11,'Hero');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(2,12,'Hero');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(3,14,'Hero');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(5,16,'Hero');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(4,17,'Heroine');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(1,17,'Hero');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO MOVIE_CAST VALUES(1,18,'Hero');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO RATING VALUES(11,5);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO RATING VALUES(12,4);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO RATING VALUES(13,5);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO RATING VALUES(14,4);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO RATING VALUES(15,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC ACTOR;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Act_id     | int(11)     | NO   | PRI | NULL    |       |
+| Act_Name   | varchar(20) | YES  |     | NULL    |       |
+| Act_Gender | char(1)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC DIRECTOR;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dir_id    | int(11)     | NO   | PRI | NULL    |       |
+| Dir_Name  | varchar(20) | YES  |     | NULL    |       |
+| Dir_Phone | bigint(20)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC MOVIES;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Mov_id      | int(11)     | NO   | PRI | NULL    |       |
+| Movie_Title | varchar(30) | YES  |     | NULL    |       |
+| Mov_Year    | int(11)     | YES  |     | NULL    |       |
+| Mov_Lang    | varchar(20) | YES  |     | NULL    |       |
+| Dir_id      | int(11)     | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> DESC MOVIE_CAST;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Act_id | int(11)     | NO   | PRI | NULL    |       |
+| Mov_id | int(11)     | NO   | PRI | NULL    |       |
+| Role   | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC RATING;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| Mov_id    | int(11) | NO   | PRI | NULL    |       |
+| Rev_Stars | int(11) | YES  |     | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ACTOR;
++--------+--------------+------------+
+| Act_id | Act_Name     | Act_Gender |
++--------+--------------+------------+
+|      1 | Ganesh       | M          |
+|      2 | Sudeep       | M          |
+|      3 | Radhika      | F          |
+|      4 | Rakshitha    | F          |
+|      5 | Ravichandran | M          |
++--------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DIRECTOR;
++--------+---------------+------------+
+| Dir_id | Dir_Name      | Dir_Phone  |
++--------+---------------+------------+
+|    101 | Dorai Bhagwan | 9408765841 |
+|    102 | Yograj Bhat   | 6238846656 |
+|    103 | Sudeep        | 9108794527 |
+|    104 | Ravichandran  | 8086465298 |
+|    105 | Dwarakeesh    | 9566557639 |
+|    106 | Hitchcock     | 9847931105 |
++--------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM MOVIES;
++--------+-------------+----------+----------+--------+
+| Mov_id | Movie_Title | Mov_Year | Mov_Lang | Dir_id |
++--------+-------------+----------+----------+--------+
+|     11 | M1          |     2008 | Kannada  |    102 |
+|     12 | M2          |     2010 | Kannada  |    103 |
+|     13 | M3          |     1990 | Kannada  |    104 |
+|     14 | M4          |     2010 | Kannada  |    105 |
+|     15 | M5          |     2012 | Kannada  |    105 |
+|     16 | M6          |     1992 | Kannada  |    104 |
+|     17 | M7          |     1990 | Kannada  |    101 |
+|     18 | M8          |     2015 | Kannada  |    106 |
++--------+-------------+----------+----------+--------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM MOVIE_CAST;
++--------+--------+---------+
+| Act_id | Mov_id | Role    |
++--------+--------+---------+
+|      1 |     11 | Hero    |
+|      1 |     17 | Hero    |
+|      1 |     18 | Hero    |
+|      2 |     12 | Hero    |
+|      3 |     14 | Hero    |
+|      4 |     17 | Heroine |
+|      5 |     16 | Hero    |
++--------+--------+---------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM RATING;
++--------+-----------+
+| Mov_id | Rev_Stars |
++--------+-----------+
+|     11 |         5 |
+|     12 |         4 |
+|     13 |         5 |
+|     14 |         4 |
+|     15 |         5 |
++--------+-----------+
+5 rows in set (0.00 sec)
+
