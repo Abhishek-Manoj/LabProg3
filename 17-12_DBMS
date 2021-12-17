@@ -1,0 +1,89 @@
+mysql> SELECT Movie_Title FROM MOVIES AS M,DIRECTOR AS D WHERE M.Dir_id=D.Dir_id AND M.Dir_id=106;
++-------------+
+| Movie_Title |
++-------------+
+| M8          |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> UPDATE MOVIE_CAST SET Role='Heroine' WHERE Act_id=3;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM MOVIE_CAST;
++--------+--------+---------+
+| Act_id | Mov_id | Role    |
++--------+--------+---------+
+|      1 |     11 | Hero    |
+|      1 |     17 | Hero    |
+|      1 |     18 | Hero    |
+|      2 |     12 | Hero    |
+|      3 |     14 | Heroine |
+|      4 |     17 | Heroine |
+|      5 |     16 | Hero    |
++--------+--------+---------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT Movie_Title from MOVIES M,MOVIE_CAST MC WHERE M.Mov_id=MC.Mov_id AND MC.Act_id IN(SELECT Act_id from MOVIE_CAST MC GROUP BY Act_id HAVING
+ COUNT(Act_id)>1);
++-------------+
+| Movie_Title |
++-------------+
+| M1          |
+| M7          |
+| M8          |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Act_Name FROM ACTOR AS A JOIN MOVIE_CAST AS MC ON A.Act_id=MC.Act_id JOIN MOVIES AS M ON MC.Mov_id=M.Mov_id WHERE Mov_Year NOT BETWEEN 2000 AND 2015;
++--------------+
+| Act_Name     |
++--------------+
+| Ganesh       |
+| Rakshitha    |
+| Ravichandran |
++--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT M.Movie_Title,R.Rev_Stars FROM MOVIES M, RATING R WHERE M.Mov_id=R.Mov_id GROUP BY R.Mov_id ORDER BY R.Rev_Stars DESC LIMIT 3;+-------------+-----------+
+| Movie_Title | Rev_Stars |
++-------------+-----------+
+| M5          |         5 |
+| M1          |         5 |
+| M3          |         5 |
++-------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE DIRECTOR SET Dir_Name='Steven Spielberg' WHERE Dir_id=103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE RATING SET Rev_Stars=5 WHERE Mov_id IN(SELECT Mov_id FROM DIRECTOR AS D, MOVIES AS M WHERE M.Dir_id=D.Dir_id AND Dir_Name='Steven Spielberg');
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM RATING;
++--------+-----------+
+| Mov_id | Rev_Stars |
++--------+-----------+
+|     11 |         5 |
+|     12 |         5 |
+|     13 |         5 |
+|     14 |         4 |
+|     15 |         5 |
++--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DIRECTOR;
++--------+------------------+------------+
+| Dir_id | Dir_Name         | Dir_Phone  |
++--------+------------------+------------+
+|    101 | Dorai Bhagwan    | 9408765841 |
+|    102 | Yograj Bhat      | 6238846656 |
+|    103 | Steven Spielberg | 9108794527 |
+|    104 | Ravichandran     | 8086465298 |
+|    105 | Dwarakeesh       | 9566557639 |
+|    106 | Hitchcock        | 9847931105 |
++--------+------------------+------------+
+6 rows in set (0.00 sec)
+
